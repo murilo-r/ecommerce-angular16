@@ -1,0 +1,33 @@
+<div class="hero">
+  <div class="inner">
+    <div class="left">
+      <div class="title">Painel de Produtos</div>
+      <div class="subtitle">
+        Gerencie o catálogo: crie, edite e desative produtos facilmente.
+      </div>
+    </div>
+    <div class="right">
+      <button class="btn-primary" routerLink="/produtos/novo">
+        + Novo Produto
+      </button>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="card" [class.pulse]="!loading">
+      <div class="label">Total</div>
+      <div class="value">{{ total }}</div>
+    </div>
+    <div class="card" [class.pulse]="!loading">
+      <div class="label">Ativos</div>
+      <div class="value">{{ ativos }}</div>
+    </div>
+    <div class="card" [class.pulse]="!loading">
+      <div class="label">Inativos</div>
+      <div class="value">{{ inativos }}</div>
+    </div>
+    <div class="updated">
+      Última atualização: <span>{{ updatedAt || '—' }}</span>
+    </div>
+  </div>
+</div>

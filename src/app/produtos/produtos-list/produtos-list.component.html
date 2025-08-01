@@ -1,0 +1,57 @@
+<div class="p-4">
+  <div class="header-list flex" style="justify-content: space-between; align-items:center; flex-wrap:wrap;">
+    <div>
+      <h2>Produtos</h2>
+    </div>
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+      <input
+        placeholder="Buscar..."
+        [value]="searchText"
+        (input)="onBuscaChange($any($event.target).value)"
+      />
+      <select (change)="onDeptChange($any($event.target).value)">
+        <option value="">Todos Departamentos</option>
+        <option *ngFor="let d of departamentos" [value]="d.codigo">{{ d.descricao }}</option>
+      </select>
+      <button (click)="buscar()" class="btn btn-primary btn-sm">Buscar</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" style="margin-top:1rem;">Carregando...</div>
+
+  <table *ngIf="!loading" class="full-width" style="margin-top:1rem; border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Descrição</th>
+        <th>Departamento</th>
+        <th>Preço</th>
+        <th>Status</th>
+        <th style="text-align:right;">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of paged">
+        <td>{{ p.codigo }}</td>
+        <td>{{ p.descricao }}</td>
+        <td>{{ p.departamentoCodigo }}</td>
+        <td>{{ p.preco | currency:'BRL' }}</td>
+        <td>{{ p.status ? 'Ativo' : 'Inativo' }}</td>
+        <td style="text-align:right;">
+          <button (click)="editar(p)" class="btn btn-sm">Editar</button>
+          <button (click)="excluir(p)" class="btn btn-sm" style="margin-left:4px;">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && filtered.length === 0" style="margin-top:1rem;">
+    Nenhum produto encontrado.
+  </div>
+
+  <div class="pagination" *ngIf="filtered.length > pageSize" style="margin-top:1rem; display:flex; gap:8px; align-items:center;">
+    <button (click)="mudarPagina(-1)" [disabled]="page === 1" class="btn btn-sm">Anterior</button>
+    <div> Página {{ page }} de {{ totalPages() }} </div>
+    <button (click)="mudarPagina(1)" [disabled]="page === totalPages()" class="btn btn-sm">Próxima</button>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.card {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+label {
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+input, select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.1);
+  width: 100%;
+  font-size: 0.9rem;
+}
+.error {
+  color: #dc2626;
+  font-size: 0.65rem;
+}
