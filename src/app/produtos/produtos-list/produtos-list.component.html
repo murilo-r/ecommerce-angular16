@@ -36,7 +36,11 @@
         <td>{{ p.descricao }}</td>
         <td>{{ p.departamentoCodigo }}</td>
         <td>{{ p.preco | currency:'BRL' }}</td>
-        <td>{{ p.status ? 'Ativo' : 'Inativo' }}</td>
+        <td>
+          <span [class]="p.status ? 'badge status-active' : 'badge status-inactive'">
+            {{ p.status ? 'Ativo' : 'Inativo' }}
+          </span>
+        </td>
         <td style="text-align:right;">
           <button (click)="editar(p)" class="btn btn-sm">Editar</button>
           <button (click)="excluir(p)" class="btn btn-sm" style="margin-left:4px;">Excluir</button>

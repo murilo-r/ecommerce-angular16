@@ -1,46 +1,62 @@
 <div class="p-4 card">
   <h2>{{ isEdit ? 'Editar' : 'Novo' }} Produto</h2>
 
-  <div *ngIf="loading">Carregando...</div>
-
-  <form [formGroup]="form" (ngSubmit)="salvar()" *ngIf="!loading">
+  <form [formGroup]="form" (ngSubmit)="salvar()">
     <div class="form-row">
-      <div>
-        <label>Código</label>
-        <input formControlName="codigo" />
-        <div *ngIf="form.controls['codigo'].invalid && form.controls['codigo'].touched" class="error">
-          Código obrigatório.
+      <div style="flex:1;">
+        <label for="codigo">Código</label>
+        <input id="codigo" formControlName="codigo" />
+        <div class="error" *ngIf="f['codigo'].touched && f['codigo'].errors">
+          <div *ngIf="f['codigo'].errors?.['required']">Código é obrigatório.</div>
+          <div *ngIf="f['codigo'].errors?.['maxlength']">Máximo de 50 caracteres.</div>
+          <div *ngIf="f['codigo'].errors?.['codigoDuplicado']">Código já existe.</div>
         </div>
+        <div *ngIf="checkingCode" style="font-size:.65rem; color:#555;">Verificando código...</div>
       </div>
-      <div>
-        <label>Descrição</label>
-        <input formControlName="descricao" />
-        <div *ngIf="form.controls['descricao'].invalid && form.controls['descricao'].touched" class="error">
-          Descrição obrigatória.
+
+      <div style="flex:2;">
+        <label for="descricao">Descrição</label>
+        <input id="descricao" formControlName="descricao" />
+        <div class="error" *ngIf="f['descricao'].touched && f['descricao'].errors">
+          <div *ngIf="f['descricao'].errors?.['required']">Descrição é obrigatória.</div>
+          <div *ngIf="f['descricao'].errors?.['maxlength']">Máximo de 200 caracteres.</div>
         </div>
       </div>
     </div>
 
-    <div class="form-row">
-      <div>
-        <label>Departamento</label>
-        <select formControlName="departamentoCodigo">
+    <div class="form-row" style="margin-top:1rem;">
+      <div style="flex:1;">
+        <label for="departamento">Departamento</label>
+        <select id="departamento" formControlName="departamentoCodigo">
           <option value="">Selecione</option>
           <option *ngFor="let d of departamentos" [value]="d.codigo">{{ d.descricao }}</option>
         </select>
+        <div class="error" *ngIf="f['departamentoCodigo'].touched && f['departamentoCodigo'].errors">
+          <div *ngIf="f['departamentoCodigo'].errors?.['required']">Departamento é obrigatório.</div>
+        </div>
       </div>
-      <div>
-        <label>Preço</label>
-        <input type="number" step="0.01" formControlName="preco" />
+      <div style="flex:1;">
+        <label for="preco">Preço</label>
+        <input id="preco" type="number" step="0.01" formControlName="preco" />
+        <div class="error" *ngIf="f['preco'].touched && f['preco'].errors">
+          <div *ngIf="f['preco'].errors?.['required']">Preço é obrigatório.</div>
+          <div *ngIf="f['preco'].errors?.['min']">Preço deve ser maior que zero.</div>
+        </div>
       </div>
-      <div>
-        <label>Status</label>
-        <input type="checkbox" formControlName="status" /> Ativo
+      <div style="flex:0.5; display:flex; align-items:center; margin-bottom:-3%;">
+        <label for="status" style="margin-bottom:4px;">Status</label>
+        <div class="switch">
+          <input type="checkbox" id="status" formControlName="status" />
+          <label for="status" class="slider"></label>
+          <span class="switch-label">{{ form.value.status ? 'Ativo' : 'Inativo' }}</span>
+        </div>
       </div>
     </div>
 
-    <div style="margin-top:1rem;">
-      <button type="submit" class="btn btn-primary">{{ isEdit ? 'Atualizar' : 'Criar' }}</button>
+    <div style="margin-top:1.5rem; display:flex; gap:10px; flex-wrap:wrap;">
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || submitting">
+        {{ submitting ? (isEdit ? 'Atualizando...' : 'Salvando...') : (isEdit ? 'Atualizar' : 'Criar') }}
+      </button>
       <button type="button" class="btn btn-sm" (click)="voltar()">Cancelar</button>
     </div>
   </form>

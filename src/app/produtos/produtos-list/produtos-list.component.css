@@ -16,3 +16,32 @@ th {
 tr:hover {
   background: rgba(0,0,0,0.03);
 }
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-active {
+  background: #16a34a; /* verde */
+  color: white;
+}
+
+.status-inactive {
+  background: #dc2626; /* vermelho */
+  color: white;
+}
+
+[data-theme='dark'] .status-active {
+  background: #4ade80;
+  color: #0f172a;
+}
+[data-theme='dark'] .status-inactive {
+  background: #f87171;
+  color: #1f1f2e;
+}
