@@ -6,13 +6,14 @@
       <a routerLink="/produtos">Produtos</a>
     </nav>
     <div class="header-actions">
-      <button class="btn btn-sm btn-link" (click)="themeToggle()">
+      <button class="theme-toggle-btn" (click)="themeToggle()">
         {{ theme === 'light' ? '🌙 Escuro' : '☀️ Claro' }}
       </button>
       <div style="border-left:1px solid rgba(255,255,255,0.3); height:20px;"></div>
+      <div class="header-separator"></div>
       <div style="display:flex; align-items:center; gap:6px;">
         <span style="font-size:.9rem;">Usuário: mock-user</span>
-        <button class="btn btn-sm btn-primary" (click)="logout()">Logout</button>
+        <button class="logout-btn" (click)="logout()">Logout</button>
       </div>
     </div>
   </header>
