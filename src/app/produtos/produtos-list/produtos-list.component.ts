@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProdutosService } from '../produtos.service';
 import { Produto } from '../../shared/models/produto.model';
 import { Departamento } from '../../shared/models/departamento.model';
-import { debounceTime, Subject, switchMap, tap } from 'rxjs';
+import { Subject, switchMap } from 'rxjs';
 import { ToastService } from '../../shared/services/toast.service';
+import { Router } from '@angular/router';
 
 const PAGE_SIZE = 10;
 
@@ -24,7 +25,8 @@ export class ProdutosListComponent implements OnInit {
 
   constructor(
     private svc: ProdutosService,
-    private toast: ToastService
+    private toast: ToastService,
+    private router: Router
   ) {}
 
   searchText = '';
@@ -101,7 +103,7 @@ export class ProdutosListComponent implements OnInit {
   }
 
   editar(p: Produto) {
-    // navegação externa, pode injetar Router se desejar
+    this.router.navigate(['/produtos', p.id]);
   }
 
   excluir(p: Produto) {
