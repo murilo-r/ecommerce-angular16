@@ -1,33 +1,46 @@
-/* base do card */
+:root {
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --brand: #2563eb;
+  --radius: 12px;
+  --shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+  --transition: .3s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme='dark'] {
+  --surface: #1e2946;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+}
+
 .card {
   background: var(--surface);
   padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   max-width: 920px;
   margin: 0 auto;
   position: relative;
-  transition: transform .25s ease, box-shadow .25s ease, background .35s ease;
+  transition: transform .25s ease, background .35s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-/* título */
 h2 {
   margin-top: 0;
-  font-size: 1.65rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--text);
 }
 
-/* layout flexível */
 .form-row {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .form-row > div {
@@ -35,7 +48,6 @@ h2 {
   min-width: 180px;
 }
 
-/* label */
 label {
   display: block;
   font-size: 0.75rem;
@@ -44,18 +56,24 @@ label {
   color: var(--text);
 }
 
-/* campos */
 input,
 select {
   width: 100%;
   padding: 10px 14px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.15);
   background: #fff;
+  color: #1f2937;
   transition: border-color .2s ease, box-shadow .2s ease, background .35s ease;
   box-sizing: border-box;
-  color: #1f2937;
+}
+
+[data-theme='dark'] input,
+[data-theme='dark'] select {
+  background: #1f2946;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
 }
 
 input:focus,
@@ -65,11 +83,10 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
-/* erros */
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
   border-color: #dc2626;
-  background: rgba(220, 38, 38, 0.03);
+  background: rgba(220, 38, 38, 0.05);
 }
 
 .error {
@@ -79,129 +96,11 @@ select.ng-invalid.ng-touched {
   line-height: 1.1;
 }
 
-/* checkbox */
-input[type="checkbox"] {
-  margin-right: 6px;
-  transform: scale(1.1);
-}
-
-/* ações (botões) */
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 1.25rem;
-}
-
-/* botão padrão */
-.btn {
-  padding: 0.65rem 1.15rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* botão primário */
-.btn-primary {
-  background: var(--brand);
-  color: #fff;
-  border: 1px solid var(--brand);
-  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
-}
-
-.btn-primary:hover:not(:disabled) {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-
-/* botão cancelar - ghost com borda, adaptado para claro/escuro */
-.btn-cancel {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid rgba(0,0,0,0.15);
-}
-
-.btn-cancel:hover {
-  background: rgba(0,0,0,0.04);
-  box-shadow: 0 8px 20px -5px rgba(0,0,0,0.1);
-  transform: translateY(-1px);
-}
-
-/* versão escura do cancelar */
-[data-theme='dark'] .btn-cancel {
-  color: #e2e8f0;
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-[data-theme='dark'] .btn-cancel:hover {
-  background: rgba(255,255,255,0.07);
-}
-
-/* desabilitado */
-button:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-/* overlay de loading leve */
-.loading-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  backdrop-filter: blur(3px);
-}
-
-/* texto auxiliar pequeno */
-.small-text {
-  font-size: 0.65rem;
-  color: var(--muted);
-  margin-top: 3px;
-}
-
-/* responsividade */
-@media (max-width: 860px) {
-  .form-row {
-    flex-direction: column;
-  }
-}
-
-/* ajustes para tema escuro */
-[data-theme='dark'] input,
-[data-theme='dark'] select {
-  background: #1f2946;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e2e8f0;
-}
-
-[data-theme='dark'] input:focus,
-[data-theme='dark'] select:focus {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
-}
-
-[data-theme='dark'] .card {
-  background: var(--surface);
-}
-
-[data-theme='dark'] .error {
-  color: #fca5a5;
-}
-
 .switch {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .switch input {
@@ -230,10 +129,9 @@ button:disabled {
   background: white;
   border-radius: 50%;
   transition: transform .25s ease, box-shadow .2s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* ligado */
 input:checked + .slider {
   background: var(--brand);
 }
@@ -241,10 +139,10 @@ input:checked + .slider::after {
   transform: translateX(22px);
 }
 
-/* label ao lado */
 .switch-label {
   font-size: 0.75rem;
   font-weight: 600;
+  color: var(--text);
 }
 
 [data-theme='dark'] .slider {
@@ -252,4 +150,83 @@ input:checked + .slider::after {
 }
 [data-theme='dark'] input:checked + .slider {
   background: #6366f1;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+/* botões */
+.btn {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background .2s ease, transform .15s ease;
+}
+
+.btn-primary {
+  background: var(--brand);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.btn-cancel:hover {
+  background: rgba(0,0,0,0.04);
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .btn-cancel {
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+[data-theme='dark'] .btn-cancel:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* helper / small text */
+.small-text {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* overlay de carregamento leve */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* responsividade */
+@media (max-width: 860px) {
+  .form-row {
+    flex-direction: column;
+  }
 }

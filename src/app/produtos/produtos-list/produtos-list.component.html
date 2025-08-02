@@ -3,18 +3,29 @@
     <div>
       <h2>Produtos</h2>
     </div>
-    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
-      <input
-        placeholder="Buscar..."
-        [value]="searchText"
-        (input)="onBuscaChange($any($event.target).value)"
-      />
-      <select (change)="onDeptChange($any($event.target).value)">
-        <option value="">Todos Departamentos</option>
-        <option *ngFor="let d of departamentos" [value]="d.codigo">{{ d.descricao }}</option>
-      </select>
-      <button (click)="buscar()" class="btn btn-primary btn-sm">Buscar</button>
-    </div>
+<div class="filters">
+  <div class="input-group">
+    <span class="icon-search" aria-hidden="true">🔍</span>
+    <input
+      aria-label="Buscar"
+      placeholder="Buscar..."
+      [value]="searchText"
+      (input)="onBuscaChange($any($event.target).value)"
+      class="search-input"
+    />
+  </div>
+
+  <div class="input-group select-group">
+    <select aria-label="Departamento" (change)="onDeptChange($any($event.target).value)">
+      <option value="">Todos Departamentos</option>
+      <option *ngFor="let d of departamentos" [value]="d.codigo">{{ d.descricao }}</option>
+    </select>
+    <span class="chevron">▾</span>
+  </div>
+
+  <button (click)="buscar()" class="btn btn-primary btn-sm">Buscar</button>
+  <button routerLink="/produtos/novo" class="btn btn-primary btn-sm">+ Novo Produto</button>
+</div>
   </div>
 
   <div *ngIf="loading" style="margin-top:1rem;">Carregando...</div>
